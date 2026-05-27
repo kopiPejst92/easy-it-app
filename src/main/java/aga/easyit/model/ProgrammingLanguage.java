@@ -1,4 +1,4 @@
-package aga.model;
+package aga.easyit.model;
 
 import jakarta.persistence.Entity;
 

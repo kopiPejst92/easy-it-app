@@ -1,4 +1,4 @@
-package aga.model;
+package aga.easyit.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,19 +20,24 @@ public class Command implements Serializable {
     private Long id;
     @Column(nullable = false, unique = true)
     private String name;
-    private String description;
+    @Column(nullable = true)
+    private Framework framework;
     private ProgrammingLanguage language;
-    private String framework;
-    private List<Parameter> parametersList;
     @OneToMany(mappedBy = "command", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FlashCard> flashcards;
-
+    private String description;
+    private List<Parameter> parametersList;
+    
     private String version;
     private String documentationUrl;
    
     public Command(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getId() {
@@ -62,11 +67,11 @@ public class Command implements Serializable {
         this.language = language;
     }
 
-    public String getFramework() {
+    public Framework getFramework() {
         return framework;
     }
-    public void setFramework(String framework) {
-        this.framework = framework;
+    public void setFramework(String fName) {
+        this.framework = new Framework(fName);
     }
 
     public List<Parameter> getParametersList() {
