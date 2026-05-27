@@ -1,11 +1,16 @@
 package aga.model;
 
 import java.io.Serializable;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Command implements Serializable {
@@ -13,12 +18,17 @@ public class Command implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
+    @Column(nullable = false, unique = true)
     private String name;
     private String description;
-    private String language;
+    private ProgrammingLanguage language;
     private String framework;
-    private String[] tag;
+    private List<Parameter> parametersList;
+    @OneToMany(mappedBy = "command", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FlashCard> flashcards;
+
     private String version;
+    private String documentationUrl;
    
     public Command(String name, String description) {
         this.name = name;
@@ -44,11 +54,11 @@ public class Command implements Serializable {
         this.name = name;
     }
 
-    public String getLanguage() {
+    public ProgrammingLanguage getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(ProgrammingLanguage language) {
         this.language = language;
     }
 
@@ -59,12 +69,12 @@ public class Command implements Serializable {
         this.framework = framework;
     }
 
-    public String[] getTag() {
-        return tag;
+    public List<Parameter> getParametersList() {
+        return parametersList;
     }
 
-    public void setTag(String[] tag) {
-        this.tag = tag;
+    public void setParametersList(List<Parameter> parametersList) {
+        this.parametersList = parametersList;
     }
 
     public String getVersion() {
