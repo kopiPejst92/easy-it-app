@@ -10,6 +10,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -20,16 +22,20 @@ public class Command implements Serializable {
     private Long id;
     @Column(nullable = false, unique = true)
     private String name;
-    @Column(nullable = true)
+    @ManyToOne
+    @JoinColumn(name="framework_id")
     private Framework framework;
-    private ProgrammingLanguage language;
+    @ManyToOne
+    @JoinColumn(name="library_id")
+    private Library library;
     @OneToMany(mappedBy = "command", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FlashCard> flashcards;
     private String description;
-    private List<Parameter> parametersList;
-    
+    // private List<Parameter> parametersList;
     private String version;
     private String documentationUrl;
+    private String keyShrt;
+
    
     public Command(String name, String description) {
         this.name = name;
@@ -59,14 +65,6 @@ public class Command implements Serializable {
         this.name = name;
     }
 
-    public ProgrammingLanguage getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(ProgrammingLanguage language) {
-        this.language = language;
-    }
-
     public Framework getFramework() {
         return framework;
     }
@@ -74,13 +72,13 @@ public class Command implements Serializable {
         this.framework = new Framework(fName);
     }
 
-    public List<Parameter> getParametersList() {
-        return parametersList;
-    }
+    // public List<Parameter> getParametersList() {
+    //     return parametersList;
+    // }
 
-    public void setParametersList(List<Parameter> parametersList) {
-        this.parametersList = parametersList;
-    }
+    // public void setParametersList(List<Parameter> parametersList) {
+    //     this.parametersList = parametersList;
+    // }
 
     public String getVersion() {
         return version;

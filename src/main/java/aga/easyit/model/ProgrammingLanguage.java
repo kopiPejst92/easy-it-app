@@ -5,9 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity
 public class ProgrammingLanguage {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String developer; 
