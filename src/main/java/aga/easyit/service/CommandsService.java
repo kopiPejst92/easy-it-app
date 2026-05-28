@@ -23,6 +23,10 @@ public class CommandsService {
         return commandsRepository.save(command);
     }
 
+    public Command updateCommand(Command command){
+        return commandsRepository.save(command);
+    }
+
     public List<Command> findAllCommands(){
         return commandsRepository.findAll();
     }
