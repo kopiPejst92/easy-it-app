@@ -25,4 +25,22 @@ public class Library {
     @ManyToOne
     @JoinColumn(name="framework_id")
     private Framework framework;
+    
+    public Library(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Framework getFramework() {
+        return framework;
+    }
+    public void setFramework(Framework framework) {
+        this.framework = framework;
+    }
 }
+
