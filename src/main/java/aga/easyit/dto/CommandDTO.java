@@ -1,5 +1,4 @@
 package aga.easyit.dto;
 
-public record CommandDTO() {
-    
-}
+public record CommandDTO(
+    String base

@@ -1,6 +1,7 @@
 package aga.easyit.dto;
 
 public record FlashCardDTO(
-    String title
+    String title,
+    CommandDTO CommandDTO
 ) {
 }
