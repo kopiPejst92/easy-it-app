@@ -18,7 +18,6 @@ public class FlashCardService {
     }
 
     public FlashCard addFlashCard(FlashCard flashCard){
-        flashCard.setTitle("");
         return flashCardRepository.save(flashCard);
     }
 

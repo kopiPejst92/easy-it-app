@@ -22,9 +22,9 @@ public class Command implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
     @Column(nullable = false, unique = false)
-    private String name;
+    private String base;
     @Column(nullable = true, unique = false)
-    private String shortName;
+    private String shortVer;
     // private String level;
     private CommandCategory category;
     @Column(nullable=false, unique=false)
@@ -42,7 +42,7 @@ public class Command implements Serializable {
     
 
     public Command(String name, String description) {
-        this.name = name;
+        this.base = name;
         this.description = description;
     }
 
@@ -54,20 +54,20 @@ public class Command implements Serializable {
         return id;
     }
 
-        public String getName() {
-        return name;
+        public String getBase() {
+        return base;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBase(String name) {
+        this.base = name;
     }
 
-       public String getShortName() {
-        return shortName;
+       public String getShortVer() {
+        return shortVer;
     }
 
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
+    public void setShortVer(String shortName) {
+        this.shortVer = shortName;
     }
 
     //public String getLevel() {

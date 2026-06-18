@@ -13,6 +13,7 @@ public abstract class Argument {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
+    @Column(nullable = false, updatable = true)
     private String name;
     private String shortName;
     private ArgumentType type;

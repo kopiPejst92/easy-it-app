@@ -14,15 +14,15 @@ public class FlashCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-    private String name;
+    private String title;
     @ManyToOne
     @JoinColumn(name = "command_id") // Maps the foreign key column in the DB
     private Command command;
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
     public void setTitle(String name) {
-        this.name = name;
+        this.title = name;
     }
 }
