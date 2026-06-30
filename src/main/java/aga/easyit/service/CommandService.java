@@ -1,6 +1,6 @@
 package aga.easyit.service;
 
-import com.jetbrains.exported.JBRApi.Service;
+import org.springframework.stereotype.Service;
 
 import aga.easyit.dto.CommandDTO;
 import aga.easyit.model.Command;
@@ -15,7 +15,7 @@ public class CommandService{
     }
     
     public Command getOrCreateCommand(CommandDTO commandDTO){
-        return new Command("clear", "This is usually CLI instruction which clears the interface.");
+       return new Command(commandDTO.base(), "Here add some");
     }
     
 }
