@@ -2,22 +2,27 @@ package aga.easyit.service;
 
 import aga.easyit.repo.FlashCardRepository;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import aga.easyit.dto.CommandDTO;
 import aga.easyit.exception.CardNotFoundException;
+import aga.easyit.model.Command;
 import aga.easyit.model.FlashCard;
 
 @Service
 public class FlashCardService {
     private final FlashCardRepository flashCardRepository;
+    private final CommandService commandService;
 
-    @Autowired
-    public FlashCardService(FlashCardRepository flashCardRepository){
+    
+    public FlashCardService(FlashCardRepository flashCardRepository, CommandService commandService) {
         this.flashCardRepository = flashCardRepository;
+        this.commandService = commandService;
     }
 
-    public FlashCard addFlashCard(FlashCard flashCard){
+    public FlashCard createFlashCard(CommandDTO commandDTO){
+        Command createdCom= commandService.getOrCreateCommand(commandDTO);
+        FlashCard flashCard= new FlashCard("Clear", createdCom);
         return flashCardRepository.save(flashCard);
     }
 

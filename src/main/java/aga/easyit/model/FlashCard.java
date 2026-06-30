@@ -19,6 +19,11 @@ public class FlashCard {
     @JoinColumn(name = "command_id") // Maps the foreign key column in the DB
     private Command command;
 
+    public FlashCard(String title, Command command){
+        this.title=title;
+        this.command=command;
+    }
+
     public String getTitle() {
         return title;
     }
