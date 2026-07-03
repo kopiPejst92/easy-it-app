@@ -35,14 +35,20 @@ public class Command implements Serializable {
     private Library library;
     @OneToMany(mappedBy = "command", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FlashCard> flashcards;
-    // private RunMode runMode;
-    // private String documentationUrl;
-    // private String keyShrt;
+    @OneToMany(mappedBy = "command", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Argument> argumentsList;
+    @ManyToOne
+    @JoinColumn(name="runMode_id")
+    private RunMode runMode;
+    @Column(nullable=true, unique=false)
+    private String documentationUrl;
+    @Column(nullable=true, unique=false)
+    private String keyShrt;
     
     
 
-    public Command(String name, String description) {
-        this.base = name;
+    public Command(String base, String description) {
+        this.base = base;
         this.description = description;
     }
 

@@ -1,5 +1,9 @@
 package aga.easyit.dto;
 
-public record FlashCardDTO() {
+import java.util.List;
 
-}
+public record FlashCardDTO(
+    String  title,
+    CommandDTO commandDTO,
+    List<String> problemTags
+) {}

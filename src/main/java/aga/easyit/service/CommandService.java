@@ -15,7 +15,7 @@ public class CommandService{
     }
     
     public Command getOrCreateCommand(CommandDTO commandDTO){
-       return new Command(commandDTO.base(), "Here add some");
+       return commandRepository.findCommandByBase(commandDTO.base()).orElseGet(() ->  new Command(commandDTO.base(), "Here add some"));
     }
     
 }
