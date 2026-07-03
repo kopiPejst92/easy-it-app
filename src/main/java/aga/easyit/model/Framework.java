@@ -17,6 +17,7 @@ public class Framework {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
+    
     private String name;
 
     @OneToMany(mappedBy = "framework", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -1,0 +1,18 @@
+1. Interactive part
+// Stores the hover logic breakdown as JSON in PostgreSQL/MySQL
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<InteractivePartDTO> interactiveParts;
+
+2. Command
+    //private String details;
+    // private String level;
+
+3. Problem tags
+    @ElementCollection
+    @CollectionTable(name = "flashcard_tags", joinColumns = @JoinColumn(name = "flashcard_id"))
+    @Column(name = "tag")
+    private List<String> problemTags;
+
+    // Getters, Setters, Constructors
+

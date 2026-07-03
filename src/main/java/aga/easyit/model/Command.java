@@ -2,18 +2,8 @@ package aga.easyit.model;
 
 import java.io.Serializable;
 import java.util.List;
-
 import aga.easyit.dictionary.CommandCategory;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 @Entity
 public class Command implements Serializable {
@@ -25,11 +15,9 @@ public class Command implements Serializable {
     private String base;
     @Column(nullable = true, unique = false)
     private String shortVer;
-    // private String level;
     private CommandCategory category;
     @Column(nullable=false, unique=false)
     private String description;
-    //private String details;
     @ManyToOne
     @JoinColumn(name="library_id")
     private Library library;
@@ -44,8 +32,6 @@ public class Command implements Serializable {
     private String documentationUrl;
     @Column(nullable=true, unique=false)
     private String keyShrt;
-    
-    
 
     public Command(String base, String description) {
         this.base = base;
@@ -76,14 +62,6 @@ public class Command implements Serializable {
         this.shortVer = shortName;
     }
 
-    //public String getLevel() {
-    //     return level;
-    // }
-
-    //public void setLevel(String level) {
-    //     this.level = level;
-    // }
-
     public String getDescription() {
         return description;
     }
@@ -107,11 +85,11 @@ public class Command implements Serializable {
         this.category = category;
     }
 
-    // public List<Parameter> getParametersList() {
-    //     return parametersList;
-    // }
+    public RunMode getRunMode() {
+        return runMode;
+    }
 
-    // public void setParametersList(List<Parameter> parametersList) {
-    //     this.parametersList = parametersList;
-    // }
+    public void setRunMode(RunMode runMode) {
+        this.runMode = runMode;
+    }
 }
