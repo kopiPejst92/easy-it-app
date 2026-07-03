@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity  
 public abstract class Argument {
@@ -18,6 +20,8 @@ public abstract class Argument {
     private String shortName;
     private ArgumentType type;
     private String description;
+    @ManyToOne
+    @JoinColumn(name="command_id")
     private Command command;
     
     public Long getId() {
