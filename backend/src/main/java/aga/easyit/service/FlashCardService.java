@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import aga.easyit.dto.CommandDTO;
+import aga.easyit.dto.FlashCardDTO;
 import aga.easyit.exception.CardNotFoundException;
+import aga.easyit.mapper.FlashCardMapper;
 import aga.easyit.model.Command;
 import aga.easyit.model.FlashCard;
 
@@ -13,16 +15,22 @@ import aga.easyit.model.FlashCard;
 public class FlashCardService {
     private final FlashCardRepository flashCardRepository;
     private final CommandService commandService;
+    private final FlashCardMapper fMapper;
+
 
     
-    public FlashCardService(FlashCardRepository flashCardRepository, CommandService commandService) {
+    public FlashCardService(FlashCardRepository flashCardRepository, CommandService commandService, FlashCardMapper flashCardMapper) {
         this.flashCardRepository = flashCardRepository;
         this.commandService = commandService;
+        this.fMapper = flashCardMapper;
     }
 
-    public FlashCard createFlashCard(CommandDTO commandDTO){
-        Command createdCom= commandService.getOrCreateCommand(commandDTO);
-        FlashCard flashCard= new FlashCard("Clear", createdCom);
+    public FlashCard createFlashCard(FlashCardDTO flashCardDTO){
+        Command command;
+        if(flashCardDTO.commandDTO().argumentDTOs()!=null && !flashCardDTO.commandDTO().argumentDTOs().isEmpty()){
+            command= commandService.getOrCreateCommandWithArgs(flashCardDTO.commandDTO());
+        }
+        FlashCard flashCard= fMapper.toEntity(flashCardDTO);
         return flashCardRepository.save(flashCard);
     }
 

@@ -12,7 +12,7 @@ public class Command implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
     @Column(nullable = false, unique = false)
-    private String base;
+    private String syntax;
     @Column(nullable = true, unique = false)
     private String shortVer;
     private CommandCategory category;
@@ -34,7 +34,7 @@ public class Command implements Serializable {
     private String keyShrt;
 
     public Command(String base, String description) {
-        this.base = base;
+        this.syntax = base;
         this.description = description;
     }
 
@@ -46,12 +46,12 @@ public class Command implements Serializable {
         return id;
     }
 
-        public String getBase() {
-        return base;
+        public String getSyntax() {
+        return syntax;
     }
 
-    public void setBase(String name) {
-        this.base = name;
+    public void setSyntax(String name) {
+        this.syntax = name;
     }
 
        public String getShortVer() {

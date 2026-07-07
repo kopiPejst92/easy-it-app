@@ -1,7 +1,10 @@
 package aga.easyit.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import aga.easyit.dto.ArgumentDTO;
 import aga.easyit.dto.CommandDTO;
 import aga.easyit.mapper.CommandMapper;
 import aga.easyit.model.Command;
@@ -18,12 +21,17 @@ public class CommandService{
     }
     
     public Command getOrCreateCommand(CommandDTO commandDTO){
-       return commandRepository.findCommandByBase(commandDTO.base()).orElseGet(() ->
+       return commandRepository.findCommandByBase(commandDTO.syntax()).orElseGet(() ->
        { 
         Command newCom = commandMapper.toEntity(commandDTO);
         //date of update
         return this.commandRepository.save(newCom);
         });
+    }
+
+    public Command getOrCreateCommandWithArgs(CommandDTO commandDTO) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getOrCreateCommandWithArgs'");
     }
     
 }

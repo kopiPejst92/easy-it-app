@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record CommandDTO(
     @NotBlank(message="Command cannot be empty")
-    String base,
-    List<ArgumentDTO> ArgumentDTO,
+    String syntax,
+    List<ArgumentDTO> argumentDTOs,
     String runMode
 ) {}
