@@ -19,6 +19,6 @@ public class Collection {
     private String title;
     
     @ManyToMany
-    @JoinTable(name="collection_flashcards", joinColumns = @JoinColumn(name="collection_id"), inverseJoinColumns = @JoinColumn(name="flashcard_id"))
+    @JoinTable(name="deck", joinColumns = @JoinColumn(name="collection_id"), inverseJoinColumns = @JoinColumn(name="flashcard_id"))
     private List<FlashCard> flashcards=new ArrayList<>();
 }
