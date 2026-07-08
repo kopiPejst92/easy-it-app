@@ -5,8 +5,8 @@ import java.util.List;
 import jakarta.validation.constraints.NotBlank;
 
 public record CommandDTO(
-    @NotBlank(message="Command cannot be empty")
+    @NotBlank(message="Command syntax cannot be empty")
     String syntax,
-    List<ArgumentDTO> argumentDTOs,
-    String runMode
+    String runMode,
+    String description
 ) {}

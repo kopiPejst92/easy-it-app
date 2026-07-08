@@ -6,32 +6,51 @@ import org.springframework.stereotype.Service;
 
 import aga.easyit.dto.ArgumentDTO;
 import aga.easyit.dto.CommandDTO;
+import aga.easyit.mapper.ArgumentMapper;
 import aga.easyit.mapper.CommandMapper;
+import aga.easyit.model.Argument;
 import aga.easyit.model.Command;
 import aga.easyit.repo.CommandRepository;
 
 @Service
 public class CommandService{
     private final CommandRepository commandRepository;
-    private final CommandMapper commandMapper;
+    private final CommandMapper cMapper;
+    private final ArgumentMapper aMapper;
 
-    public CommandService(CommandRepository commandRepository, CommandMapper commandMapper){
+    public CommandService(CommandRepository commandRepository, CommandMapper cMapper, ArgumentMapper aMapper){
         this.commandRepository=commandRepository;
-        this.commandMapper=commandMapper;
+        this.cMapper=cMapper;
+        this.aMapper=aMapper;
     }
     
-    public Command getOrCreateCommand(CommandDTO commandDTO){
-       return commandRepository.findCommandByBase(commandDTO.syntax()).orElseGet(() ->
-       { 
-        Command newCom = commandMapper.toEntity(commandDTO);
-        //date of update
-        return this.commandRepository.save(newCom);
-        });
+    public Command getOrCreateCommand(CommandDTO commandDTO, List<ArgumentDTO> lArgumentDTOs){
+       return commandRepository.findCommandBySyntax(commandDTO.syntax()).map(existingCommand -> { 
+        if(lArgumentDTOs!=null && !lArgumentDTOs.isEmpty()){
+            updateCommandArguments(existingCommand, lArgumentDTOs);
+        }
+        return existingCommand;
+       }).orElseGet(() ->{ 
+        Command newCom= cMapper.toEntity(commandDTO);
+        if(lArgumentDTOs!=null && !lArgumentDTOs.isEmpty()){
+            updateCommandArguments(newCom, lArgumentDTOs);
+        }
+        return this.commandRepository.save(newCom);});
     }
 
-    public Command getOrCreateCommandWithArgs(CommandDTO commandDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOrCreateCommandWithArgs'");
+    private void updateCommandArguments(Command command, List<ArgumentDTO> lArgumentDTOs) {
+        List<Argument> arguments = lArgumentDTOs.stream()
+            .map(dto -> {
+                Argument arg = aMapper.toEntity(dto);
+                arg.setCommand(command);
+                return arg;
+            }).toList();
+        
+        if (command.getArgumentsList() == null) {
+            command.setArgumentsList(arguments);
+        } else {
+            command.getArgumentsList().addAll(arguments);
+        }
+
     }
-    
 }

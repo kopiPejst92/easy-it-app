@@ -25,6 +25,8 @@ public class Command implements Serializable {
     private List<FlashCard> flashcards;
     @OneToMany(mappedBy = "command", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Argument> argumentsList;
+
+
     @ManyToOne
     @JoinColumn(name="runMode_id")
     private RunMode runMode;
@@ -91,5 +93,13 @@ public class Command implements Serializable {
 
     public void setRunMode(RunMode runMode) {
         this.runMode = runMode;
+    }
+
+    public List<Argument> getArgumentsList() {
+        return argumentsList;
+    }
+
+    public void setArgumentsList(List<Argument> argumentsList) {
+        this.argumentsList = argumentsList;
     }
 }

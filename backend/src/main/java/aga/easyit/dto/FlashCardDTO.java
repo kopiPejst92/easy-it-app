@@ -5,9 +5,10 @@ import java.util.List;
 import jakarta.validation.constraints.NotBlank;
 
 public record FlashCardDTO(
-    String  title,
+    @NotBlank String  title,
     // TODO: czy nie lepiej command_id? 
-    @NotBlank
     CommandDTO commandDTO,
+    String rawCommandString,
+    List<ArgumentDTO> argumentDTOs,
     List<String> problemTags
 ) {}
