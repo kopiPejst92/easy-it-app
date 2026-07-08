@@ -15,13 +15,13 @@ import aga.easyit.repo.CommandRepository;
 @Service
 public class CommandService{
     private final CommandRepository commandRepository;
-    private final CommandMapper cMapper;
-    private final ArgumentMapper aMapper;
+    private final CommandMapper commandMapper;
+    private final ArgumentMapper argumentMapper;
 
-    public CommandService(CommandRepository commandRepository, CommandMapper cMapper, ArgumentMapper aMapper){
+    public CommandService(CommandRepository commandRepository, CommandMapper commandMapper, ArgumentMapper argumentMapper){
         this.commandRepository=commandRepository;
-        this.cMapper=cMapper;
-        this.aMapper=aMapper;
+        this.commandMapper=commandMapper;
+        this.argumentMapper=argumentMapper;
     }
     
     public Command getOrCreateCommand(CommandDTO commandDTO, List<ArgumentDTO> lArgumentDTOs){
@@ -31,7 +31,7 @@ public class CommandService{
         }
         return existingCommand;
        }).orElseGet(() ->{ 
-        Command newCom= cMapper.toEntity(commandDTO);
+        Command newCom= commandMapper.toEntity(commandDTO);
         if(lArgumentDTOs!=null && !lArgumentDTOs.isEmpty()){
             updateCommandArguments(newCom, lArgumentDTOs);
         }
@@ -41,7 +41,7 @@ public class CommandService{
     private void updateCommandArguments(Command command, List<ArgumentDTO> lArgumentDTOs) {
         List<Argument> arguments = lArgumentDTOs.stream()
             .map(dto -> {
-                Argument arg = aMapper.toEntity(dto);
+                Argument arg = argumentMapper.toEntity(dto);
                 arg.setCommand(command);
                 return arg;
             }).toList();

@@ -26,7 +26,7 @@ public class CommandParserService {
             }
         }
         
-        CommandDTO commandDTO = new CommandDTO(baseSyntax, "CLI", "Automatically parsed command");
+        CommandDTO commandDTO = new CommandDTO(baseSyntax, null, "Automatically parsed command");
         return new CommandTarget(commandDTO, parsedArgs);
     }
 }
