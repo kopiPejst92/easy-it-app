@@ -10,8 +10,6 @@ import aga.easyit.dto.ArgumentDTO;
 import aga.easyit.dto.CommandDTO;
 import aga.easyit.dto.FlashCardDTO;
 import aga.easyit.exception.CardNotFoundException;
-import aga.easyit.mapper.CommandMapper;
-import aga.easyit.mapper.FlashCardMapper;
 import aga.easyit.model.Command;
 import aga.easyit.model.FlashCard;
 
@@ -19,14 +17,12 @@ import aga.easyit.model.FlashCard;
 public class FlashCardService {
     private final FlashCardRepository flashCardRepository;
     private final CommandService commandService;
-    private final FlashCardMapper fMapper;
     private final CommandParserService commandParser; 
 
     
-    public FlashCardService(FlashCardRepository flashCardRepository, CommandService commandService, FlashCardMapper fMapper, CommandParserService commandParser) {
+    public FlashCardService(FlashCardRepository flashCardRepository, CommandService commandService, CommandParserService commandParser) {
         this.flashCardRepository = flashCardRepository;
         this.commandService = commandService;
-        this.fMapper = fMapper;
         this.commandParser=commandParser;
     }
 
