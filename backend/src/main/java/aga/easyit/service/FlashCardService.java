@@ -34,18 +34,15 @@ public class FlashCardService {
     public FlashCard createFlashCard(FlashCardDTO dto) {
         CommandTarget target;
 
-        // Scenario 2: Parse raw string string if provided
+        // Scenario: Parse raw string string if provided
         if (dto.rawCommandString() != null && !dto.rawCommandString().isBlank()) {
             target = commandParser.parse(dto.rawCommandString());
         } else {
-            // Scenario 1 & 3: Read from explicit structured DTO fields
             target = new CommandTarget(dto.commandDTO(), dto.argumentDTOs());
         }
 
-        // Fetch or save the correct structural immutable Command object
         Command command = commandService.getOrCreateCommand(target.commandDTO(), target.argumentDTOs());
 
-        // Construct the interactive flashcard container linking to it
         FlashCard flashCard = new FlashCard(dto.title(), command);
         
         return flashCardRepository.save(flashCard);
