@@ -1,0 +1,37 @@
+[
+  {
+    "type": "cli",
+    "name": "git commit",
+    "description": "Saves your staged code changes in the local repository history.",
+    "arguments": [
+      {
+        "name": "-m",
+        "category":"flag",
+        "dataType": "string",
+        "description": "Sets the commit log message.",
+        "required": true
+      },
+      {
+        "name":"-a",
+        "category":"flag",
+        "dataType": "boolean",
+        "description": "Automatically stage files that have been modified and deleted.",
+        "required": false
+      }
+    ]
+  },
+  {
+    "type": "method",
+    "name": "array.map()",
+    "description": "Creates a new array populated with the results of calling a provided function on every element.",
+    "arguments": [
+      {
+        "name": "callbackFn",
+        "category":"function",
+        "dataType":null,
+        "description": "Function that is called for every element of the array.",
+        "required": true
+      }
+    ]
+  }
+]
