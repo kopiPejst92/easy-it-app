@@ -17,31 +17,27 @@ import aga.easyit.model.FlashCard;
 public class FlashCardService {
     private final FlashCardRepository flashCardRepository;
     private final CommandService commandService;
-    private final CommandParserService commandParser; 
-
     
-    public FlashCardService(FlashCardRepository flashCardRepository, CommandService commandService, CommandParserService commandParser) {
+    public FlashCardService(FlashCardRepository flashCardRepository, CommandService commandService) {
         this.flashCardRepository = flashCardRepository;
         this.commandService = commandService;
-        this.commandParser=commandParser;
     }
 
     @Transactional
-    public FlashCard createFlashCard(FlashCardDTO dto) {
-        CommandTarget target;
-
-        // Scenario: Parse raw string string if provided
-        if (dto.rawCommandString() != null && !dto.rawCommandString().isBlank()) {
-            target = commandParser.parse(dto.rawCommandString());
-        } else {
-            target = new CommandTarget(dto.commandDTO(), dto.argumentDTOs());
-        }
-
-        Command command = commandService.getOrCreateCommand(target.commandDTO(), target.argumentDTOs());
-
-        FlashCard flashCard = new FlashCard(dto.title(), command);
+    public FlashCard createFlashCard(FlashCardDTO fcDTO) {
         
-        return flashCardRepository.save(flashCard);
+
+        // // Scenario: Parse raw string string if provided
+        if (fcDTO.rawCommandString() != null && !fcDTO.rawCommandString().isBlank()) {
+            commandService.createCommandFromRawSyntax(fcDTO.rawCommandString());
+        }
+        // } else {
+            
+        // }
+
+        FlashCard flashCard = new FlashCard(fcDTO.title(), );
+        
+        // return flashCardRepository.save(flashCard);
     }
 
     public FlashCard updateFlashCard(FlashCard flashCard){
@@ -61,4 +57,4 @@ public class FlashCardService {
     }
 }
 
-record CommandTarget(CommandDTO commandDTO, List<ArgumentDTO> argumentDTOs) {}
+record CommandTarget() {}

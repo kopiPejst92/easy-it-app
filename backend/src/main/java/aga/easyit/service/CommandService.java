@@ -22,8 +22,13 @@ public class CommandService{
         this.commandRepository=commandRepository;
         this.commandMapper=commandMapper;
         this.argumentMapper=argumentMapper;
+    } 
+
+    public Command createCommandFromRawSyntax(String raw){
+        Command parsedCommand = commandMapper.toEntityFromRawString(raw);
+        return commandRepository.findCommandBySyntax(parsedCommand.getSyntax()).map()
     }
-    
+
     public Command getOrCreateCommand(CommandDTO commandDTO, List<ArgumentDTO> lArgumentDTOs){
        return commandRepository.findCommandBySyntax(commandDTO.syntax()).map(existingCommand -> { 
         if(lArgumentDTOs!=null && !lArgumentDTOs.isEmpty()){

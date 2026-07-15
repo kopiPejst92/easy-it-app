@@ -20,6 +20,8 @@ public class Argument {
     private String shortName;
     private ArgumentType type;
     private String description;
+    private boolean required;
+
     @ManyToOne
     @JoinColumn(name="command_id")
     private Command command;
@@ -64,6 +66,14 @@ public class Argument {
     
     public void setCommand(Command command) {
         this.command = command;
+    }
+
+      public boolean isRequired() {
+        return required;
+    }
+
+    public void setRequired(boolean required) {
+        this.required = required;
     }
 
 }
