@@ -1,7 +1,7 @@
 [
   {
+    "syntax": "git commit",
     "type": "cli",
-    "name": "git commit",
     "description": "Saves your staged code changes in the local repository history.",
     "arguments": [
       {
@@ -21,8 +21,8 @@
     ]
   },
   {
+    "syntax": "array.map()",
     "type": "method",
-    "name": "array.map()",
     "description": "Creates a new array populated with the results of calling a provided function on every element.",
     "arguments": [
       {
@@ -33,5 +33,33 @@
         "required": true
       }
     ]
-  }
+  },
+  {
+    "syntax": "docker run",
+    "explanation": "Creates and starts a brand new container instance from a specified image.",
+    "position": 0,
+    "arguments": [
+      {
+        "name": "-d",
+        "explanation": "Detached mode. Runs the container in the background of your terminal so it doesn't block your shell.",
+        "position": 1
+      },
+      {
+        "name": "-p 8080:80",
+        "explanation": "Port mapping. Forwards traffic hitting your local machine's port 8080 directly into the container's port 80.",
+        "position": 2
+      },
+      {
+        "name": "--name web-server",
+        "explanation": "Assigns a custom, memorable name ('web-server') to the running container instead of a random string.",
+        "position": 3
+      },
+      {
+        "name": "nginx",
+        "explanation": "The target base image used to build the container (in this case, the Nginx web server image).",
+        "position": 4
+      }
+    ]
+  } 
 ]
+

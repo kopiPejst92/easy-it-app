@@ -1,5 +1,7 @@
 package aga.easyit.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +21,15 @@ public class FlashCard {
     @ManyToOne
     @JoinColumn(name = "command_id") // Maps the foreign key column in the DB
     private Command command;
+    private List<Argument> arguments;
+
+    public List<Argument> getArguments() {
+        return arguments;
+    }
+
+    public void setArguments(List<Argument> arguments) {
+        this.arguments = arguments;
+    }
 
     public FlashCard(String title, Command command){
         this.title=title;
@@ -30,5 +41,9 @@ public class FlashCard {
     }
     public void setTitle(String name) {
         this.title = name;
+    }
+
+    public void setCommand(Command command) {
+        this.command=command;
     }
 }
