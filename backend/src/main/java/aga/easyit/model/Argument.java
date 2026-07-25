@@ -3,13 +3,16 @@ package aga.easyit.model;
 import aga.easyit.dictionary.ArgumentType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity  
+@Table(name="arguments")
 public class Argument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +25,12 @@ public class Argument {
     private String description;
     private boolean required;
 
-    @ManyToOne
-    @JoinColumn(name="command_id")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="command_id", nullable = false)
     private Command command;
+
+    public Argument() {
+    }
     
     public Long getId() {
         return id;

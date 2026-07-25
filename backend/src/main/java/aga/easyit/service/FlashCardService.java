@@ -4,7 +4,6 @@ import aga.easyit.repo.FlashCardRepository;
 import jakarta.transaction.Transactional;
 import java.util.List;
 
-import org.hibernate.tool.schema.spi.CommandAcceptanceException;
 import org.springframework.stereotype.Service;
 import aga.easyit.dto.FlashCardDTO;
 import aga.easyit.exception.CardNotFoundException;
@@ -37,15 +36,15 @@ public class FlashCardService {
             //parsowanie
         }
         else{
-            if(fcDTO.commandDTO()==null){
+            if(fcDTO.command()==null){
                 throw new CommandNotFoundException(null);
             }
-            command=commandService.getOrCreateCommand(fcDTO.commandDTO());
-            arguments=argumentMapper.toEntityList(fcDTO.argumentDTOs());
+            command=commandService.getOrCreateCommand(fcDTO.command());
+            arguments=argumentMapper.toEntityList(fcDTO.command().arguments());
         }
         FlashCard flashCard = flashCardMapper.toEntity(fcDTO);
         // flashCard.setCommand(command);
-        FlashCard savedFlashCard = flashCardRepository.save(null);
+        FlashCard savedFlashCard = flashCardRepository.save(flashCard);
         return flashCardMapper.toDto(savedFlashCard);  
     }
 
@@ -65,5 +64,3 @@ public class FlashCardService {
         flashCardRepository.deleteFlashCardById(id);
     }
 }
-
-record CommandTarget() {}

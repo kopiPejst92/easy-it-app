@@ -9,8 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "flashcards")
 public class FlashCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +23,7 @@ public class FlashCard {
     @ManyToOne
     @JoinColumn(name = "command_id") // Maps the foreign key column in the DB
     private Command command;
+   
     private List<Argument> arguments;
 
     public List<Argument> getArguments() {
@@ -46,4 +49,6 @@ public class FlashCard {
     public void setCommand(Command command) {
         this.command=command;
     }
+
+    
 }

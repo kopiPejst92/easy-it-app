@@ -8,11 +8,14 @@ import org.mapstruct.Mapping;
 import aga.easyit.dto.FlashCardDTO;
 import aga.easyit.model.FlashCard;
 
+
 @Mapper(componentModel="spring", uses={CommandMapper.class, ArgumentMapper.class})
-public interface FlashCardMapper extends Mapper{
+public interface FlashCardMapper{
     FlashCardDTO toDto(FlashCard flashCard);
 
-    @Mapping(target = "command", ignore = true) // Obsłużymy to ręcznie w serwisie
-    @Mapping(target = "arguments", ignore = true)
+    List<FlashCardDTO> toDtoList(List<FlashCard> flashCards);
+
+    @Mapping(target = "id", ignore = true) // Obsłużymy to ręcznie w serwisie
+    @Mapping(target = "command", ignore = true)
     FlashCard toEntity(FlashCardDTO flashCardDTO);
 }

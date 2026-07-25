@@ -1,13 +1,21 @@
 package aga.easyit.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
 import aga.easyit.dto.CommandDTO;
 import aga.easyit.model.Command;
 
-@Mapper(componentModel="spring")
-public abstract class CommandMapper{
+@Mapper(componentModel="spring", uses = {ArgumentMapper.class})
+public interface CommandMapper {
     
-    public abstract CommandDTO toDto(Command command);
+    CommandDTO toDto(Command command);
 
-    public abstract Command toEntity(CommandDTO commandDTO);
+    List<CommandDTO> toDtoList(List<Command> commands);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "flashcards", ignore = true)
+    Command toEntity(CommandDTO commandDto);
 }
