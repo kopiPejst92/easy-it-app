@@ -20,11 +20,11 @@ public class Library {
     @Column(nullable = false, updatable = false)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "library", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Command> commandList;
-    @ManyToOne
-    @JoinColumn(name="framework_id")
-    private Framework framework;
+    // @OneToMany(mappedBy = "library", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // private List<Command> commandList;
+    // @ManyToOne
+    // @JoinColumn(name="framework_id")
+    // private Framework framework;
     
     public Library(String name) {
         this.name = name;
@@ -36,11 +36,11 @@ public class Library {
         this.name = name;
     }
 
-    public Framework getFramework() {
-        return framework;
-    }
-    public void setFramework(Framework framework) {
-        this.framework = framework;
-    }
+    // public Framework getFramework() {
+    //     return framework;
+    // }
+    // public void setFramework(Framework framework) {
+    //     this.framework = framework;
+    // }
 }
 

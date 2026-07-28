@@ -20,10 +20,10 @@ public class Argument {
     private Long id;
     @Column(nullable = false, updatable = true)
     private String name;
-    private String shortName;
-    private ArgumentType type;
-    private String description;
-    private boolean required;
+    // private String shortName;
+    // private ArgumentType type;
+    // private String description;
+    // private boolean required;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="command_id", nullable = false)
@@ -44,28 +44,6 @@ public class Argument {
         this.name = name;
     }
 
-    public String getShortName() {
-        return shortName;
-    }
-
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
-    }
-    public ArgumentType getType() {
-        return type;
-    }
-
-    public void setType(ArgumentType type) {
-        this.type = type;
-    }
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Command getCommand() {
         return command;
     }
@@ -74,12 +52,35 @@ public class Argument {
         this.command = command;
     }
 
-      public boolean isRequired() {
-        return required;
-    }
+    // public String getShortName() {
+    //     return shortName;
+    // }
 
-    public void setRequired(boolean required) {
-        this.required = required;
-    }
+    // public void setShortName(String shortName) {
+    //     this.shortName = shortName;
+    // }
+    // public ArgumentType getType() {
+    //     return type;
+    // }
+
+    // public void setType(ArgumentType type) {
+    //     this.type = type;
+    // }
+    // public String getDescription() {
+    //     return description;
+    // }
+
+    // public void setDescription(String description) {
+    //     this.description = description;
+    // }
+
+
+    //   public boolean isRequired() {
+    //     return required;
+    // }
+
+    // public void setRequired(boolean required) {
+    //     this.required = required;
+    // }
 
 }

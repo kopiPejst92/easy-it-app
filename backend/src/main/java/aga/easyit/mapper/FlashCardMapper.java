@@ -15,7 +15,5 @@ public interface FlashCardMapper{
 
     List<FlashCardDTO> toDtoList(List<FlashCard> flashCards);
 
-    @Mapping(target = "id", ignore = true) // Obsłużymy to ręcznie w serwisie
-    @Mapping(target = "command", ignore = true)
     FlashCard toEntity(FlashCardDTO flashCardDTO);
 }

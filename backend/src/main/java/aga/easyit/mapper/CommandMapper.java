@@ -9,13 +9,10 @@ import aga.easyit.dto.CommandDTO;
 import aga.easyit.model.Command;
 
 @Mapper(componentModel="spring", uses = {ArgumentMapper.class})
-public interface CommandMapper {
-    
+public interface CommandMapper { 
     CommandDTO toDto(Command command);
 
     List<CommandDTO> toDtoList(List<Command> commands);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "flashcards", ignore = true)
     Command toEntity(CommandDTO commandDto);
 }

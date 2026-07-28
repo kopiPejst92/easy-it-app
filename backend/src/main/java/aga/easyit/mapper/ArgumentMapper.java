@@ -12,8 +12,6 @@ import aga.easyit.model.Argument;
     public interface ArgumentMapper {
         ArgumentDTO toDto(Argument argument);
 
-       @Mapping(target = "id", ignore = true)
-       @Mapping(target = "command", ignore = true)
        Argument toEntity(ArgumentDTO argumentDTO);
 
        List<Argument> toEntityList(List<ArgumentDTO> argumetDtos);

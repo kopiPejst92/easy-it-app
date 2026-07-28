@@ -16,23 +16,14 @@ import jakarta.persistence.Table;
 public class FlashCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(nullable = false, updatable = false)
     private Long id;
     @Column(nullable = false, updatable = true)
     private String title;
     @ManyToOne
     @JoinColumn(name = "command_id") // Maps the foreign key column in the DB
     private Command command;
-   
-    private List<Argument> arguments;
-
-    public List<Argument> getArguments() {
-        return arguments;
-    }
-
-    public void setArguments(List<Argument> arguments) {
-        this.arguments = arguments;
-    }
+    List<String> problemTags;
 
     public FlashCard(String title, Command command){
         this.title=title;
@@ -48,7 +39,17 @@ public class FlashCard {
 
     public void setCommand(Command command) {
         this.command=command;
+    }  
+
+    public Command getCommand() {
+        return this.command;
+    }  
+
+    public List<String> getProblemTags() {
+        return problemTags;
     }
 
-    
+    public void setProblemTags(List<String> problemTags) {
+        this.problemTags = problemTags;
+    }
 }
