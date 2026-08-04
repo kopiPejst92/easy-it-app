@@ -1,10 +1,7 @@
 package aga.easyit.mapper;
 
 import java.util.List;
-
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import aga.easyit.dto.CommandDTO;
 import aga.easyit.model.Command;
 

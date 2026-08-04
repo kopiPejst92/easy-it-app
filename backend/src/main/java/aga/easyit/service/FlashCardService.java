@@ -1,51 +1,48 @@
 package aga.easyit.service;
 
 import aga.easyit.repo.FlashCardRepository;
+import aga.easyit.service.parser.MasterCommandParser;
 import jakarta.transaction.Transactional;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
+
+import aga.easyit.dto.CommandDTO;
 import aga.easyit.dto.FlashCardDTO;
 import aga.easyit.exception.CardNotFoundException;
-import aga.easyit.exception.CommandNotFoundException;
 import aga.easyit.mapper.ArgumentMapper;
 import aga.easyit.mapper.FlashCardMapper;
-import aga.easyit.model.Argument;
 import aga.easyit.model.Command;
 import aga.easyit.model.FlashCard;
 
 @Service
 public class FlashCardService {
     private final FlashCardRepository flashCardRepository;
-    private final CommandService commandService;
     private final FlashCardMapper flashCardMapper;
     private final ArgumentMapper argumentMapper;
+    private final MasterCommandParser parser;
+    private final CommandService commandService;
     
-    public FlashCardService(FlashCardRepository flashCardRepository, CommandService commandService, FlashCardMapper flashCardMapper, ArgumentMapper argumentMapper) {
+    public FlashCardService(FlashCardRepository flashCardRepository, FlashCardMapper flashCardMapper, ArgumentMapper argumentMapper, MasterCommandParser parser, CommandService commandService) {
         this.flashCardRepository = flashCardRepository;
-        this.commandService = commandService;
         this.flashCardMapper=flashCardMapper;
         this.argumentMapper = argumentMapper;
+        this.parser=parser;
+        this.commandService = commandService;
     }
 
     @Transactional
     public FlashCardDTO createFlashCard(FlashCardDTO fcDTO) {
-        Command command;
-        List<Argument> arguments;
-        if(fcDTO.rawCommandString()!= null && !fcDTO.rawCommandString().isBlank()){
-            //parsowanie
+        CommandDTO commandDTO;
+        FlashCard flashCard;
+        flashCard = flashCardMapper.toEntity(fcDTO);
+        if(fcDTO.rawCommandString() != null && !fcDTO.rawCommandString().isBlank()){
+            commandDTO = parser.parse(fcDTO.rawCommandString());
+            Command command = commandService.getOrCreateCommand(commandDTO);
+            command.setArguments(argumentMapper.toEntityList(commandDTO.arguments()));
+            flashCard.setCommand(command);
         }
-        else{
-            if(fcDTO.command()==null){
-                throw new CommandNotFoundException(null);
-            }
-            command=commandService.getOrCreateCommand(fcDTO.command());
-            arguments=argumentMapper.toEntityList(fcDTO.command().arguments());
-        }
-        FlashCard flashCard = flashCardMapper.toEntity(fcDTO);
-        // flashCard.setCommand(command);
-        FlashCard savedFlashCard = flashCardRepository.save(flashCard);
-        return flashCardMapper.toDto(savedFlashCard);  
+        FlashCard saved = flashCardRepository.save(flashCard);
+        return flashCardMapper.toDto(saved);  
     }
 
     public FlashCard updateFlashCard(FlashCard flashCard){
@@ -57,7 +54,7 @@ public class FlashCardService {
     }
 
     public FlashCard findFlashCardById(Long id){
-        return flashCardRepository.findFlashCardById(id).orElseThrow(() ->new CardNotFoundException("Flash card"+id+" is not found"));
+        return flashCardRepository.findFlashCardById(id).orElseThrow(() -> new CardNotFoundException("Flash card"+id+" is not found"));
     }
 
     public void deleteFlashCard(Long id){
