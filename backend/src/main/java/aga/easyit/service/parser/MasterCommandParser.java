@@ -21,6 +21,6 @@ public class MasterCommandParser {
                 .filter(strategy -> strategy.supports(trimmed)) 
                 .findFirst()
                 .map(strategy -> strategy.parse(trimmed))
-                .orElseThrow(() -> new IllegalArgumentException("Command not recognized: " + rawString));
+                .orElseThrow(() -> new IllegalArgumentException("Command not: " + rawString));
     }
 }

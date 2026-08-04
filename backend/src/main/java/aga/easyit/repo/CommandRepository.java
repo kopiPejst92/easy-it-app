@@ -8,4 +8,6 @@ import aga.easyit.model.Command;
 
 public interface CommandRepository extends JpaRepository<Command, Long>{
     Optional<Command> findCommandBySyntax(String syntax);
+
+    Optional<Command> findByToolAndName(String tool, String name);
 }

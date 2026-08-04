@@ -29,6 +29,8 @@ public class Command implements Serializable {
     // private CommandCategory category;
     @Column(nullable=false, unique=false)
     private String description;
+    @Column(nullable=false, unique = true)
+    private String tool;
     // @ManyToOne
     // @JoinColumn(name="library_id")
     // private Library library;
@@ -110,5 +112,13 @@ public class Command implements Serializable {
 
     public void setArguments(List<Argument> argumentsList) {
         this.arguments = argumentsList;
+    }
+
+       public String getTool() {
+        return tool;
+    }
+
+    public void setTool(String tool) {
+        this.tool = tool;
     }
 }

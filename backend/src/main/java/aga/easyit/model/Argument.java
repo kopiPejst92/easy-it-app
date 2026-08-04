@@ -1,6 +1,5 @@
 package aga.easyit.model;
 
-import aga.easyit.dictionary.ArgumentType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

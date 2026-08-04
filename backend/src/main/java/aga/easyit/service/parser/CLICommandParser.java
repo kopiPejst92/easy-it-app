@@ -26,7 +26,7 @@ public class CLICommandParser implements CommandParser{
         }
         String[] tokens= rawSyntax.split("\\s+");
         List<ArgumentDTO> argumentDTOs = Arrays.stream(tokens).skip(2).map(token-> new ArgumentDTO(null, token, "Parsed argument")).toList();
-        CommandDTO parsed=new CommandDTO(null, tokens[1], "Parsed CLI command", argumentDTOs);
+        CommandDTO parsed=new CommandDTO(null, tokens[0], tokens[1], "Parsed CLI command", argumentDTOs);
         return parsed;
     }
 
