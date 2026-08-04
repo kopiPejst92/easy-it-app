@@ -27,7 +27,7 @@ public class CommandService{
         if (dto == null) {
             throw new IllegalArgumentException("There is no command found");
         }
-        return commandRepository.findByToolAndName(dto.tool(), dto.syntax())
+        return commandRepository.findByToolAndSyntax(dto.tool(), dto.syntax())
                 .orElseGet(() -> {
                     Command newCommand = commandMapper.toEntity(dto);
                     return commandRepository.save(newCommand);
