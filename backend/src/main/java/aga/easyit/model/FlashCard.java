@@ -18,6 +18,8 @@ public class FlashCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
+  
+
     @Column(nullable = false, updatable = true)
     private String title;
     @ManyToOne
@@ -51,5 +53,9 @@ public class FlashCard {
 
     public void setProblemTags(List<String> problemTags) {
         this.problemTags = problemTags;
+    }
+    
+      public Long getId() {
+        return id;
     }
 }
