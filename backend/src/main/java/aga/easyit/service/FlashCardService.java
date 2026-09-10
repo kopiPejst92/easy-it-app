@@ -2,24 +2,30 @@ package aga.easyit.service;
 
 import aga.easyit.repo.FlashCardRepository;
 import jakarta.transaction.Transactional;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import aga.easyit.dto.FlashCardDTO;
+import aga.easyit.event.FlashCardCreatedEvent;
 import aga.easyit.exception.CardNotFoundException;
 import aga.easyit.mapper.FlashCardMapper;
 import aga.easyit.model.Command;
 import aga.easyit.model.FlashCard;
+import org.springframework.kafka.core.KafkaTemplate;
 
 @Service
 public class FlashCardService {
     private final FlashCardRepository flashCardRepository;
     private final FlashCardMapper flashCardMapper;
     private final CommandService commandService;
+    private final KafkaTemplate<String, FlashCardCreatedEvent> kafkaTemplate;
     
-    public FlashCardService(FlashCardRepository flashCardRepository, FlashCardMapper flashCardMapper, CommandService commandService) {
+    public FlashCardService(FlashCardRepository flashCardRepository, FlashCardMapper flashCardMapper, CommandService commandService, KafkaTemplate<String, FlashCardCreatedEvent> kafkaTemplate) {
         this.flashCardRepository = flashCardRepository;
         this.flashCardMapper=flashCardMapper;
         this.commandService = commandService;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     @Transactional
@@ -30,19 +36,33 @@ public class FlashCardService {
             flashCard.setCommand(command);
         }
         FlashCard saved = flashCardRepository.save(flashCard);
+        FlashCardCreatedEvent event = new FlashCardCreatedEvent(
+            saved.getId(),
+            saved.getTitle(),
+            saved.getCommand(),
+            LocalDateTime.now()
+        );
+        kafkaTemplate.send("flashcard-created-topic", saved.getId().toString(), event);
         return flashCardMapper.toDto(saved);  
     }
 
-    public FlashCard updateFlashCard(FlashCard flashCard){
-        return flashCardRepository.save(flashCard);
+    @Transactional
+    public FlashCardDTO updateFlashCard(FlashCardDTO flashCardDTO){
+        FlashCard toUpdate=flashCardRepository.findById(flashCardDTO.id()).orElseThrow(() -> new CardNotFoundException("Flash card is not found"));
+        Command command = commandService.getOrCreateCommand(flashCardDTO.rawCommandString(), flashCardDTO.command());
+        toUpdate.setCommand(command);
+        toUpdate.setTitle(flashCardDTO.title());
+        toUpdate.setProblemTags(flashCardDTO.problemTags());
+        return flashCardMapper.toDto(toUpdate);
     }
 
-    public List<FlashCard> findAllFlashCards(){
-        return flashCardRepository.findAll();
+    public List<FlashCardDTO> findAllFlashCards(){
+        return flashCardMapper.toDtoList(flashCardRepository.findAll());
     }
 
-    public FlashCard findFlashCardById(Long id){
-        return flashCardRepository.findFlashCardById(id).orElseThrow(() -> new CardNotFoundException("Flash card"+id+" is not found"));
+    public FlashCardDTO findFlashCardById(Long id){
+        FlashCard found= flashCardRepository.findById(id).orElseThrow(() -> new CardNotFoundException("Flash card"+id+" is not found"));
+        return flashCardMapper.toDto(found);
     }
 
     public void deleteFlashCard(Long id){
