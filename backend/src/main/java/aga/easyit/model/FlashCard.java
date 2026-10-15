@@ -18,14 +18,14 @@ public class FlashCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
-  
-
     @Column(nullable = false, updatable = true)
     private String title;
     @ManyToOne
     @JoinColumn(name = "command_id") // Maps the foreign key column in the DB
     private Command command;
     List<String> problemTags;
+    
+    public FlashCard() {} // Dodaj ten konstruktor
 
     public FlashCard(String title, Command command){
         this.title=title;
