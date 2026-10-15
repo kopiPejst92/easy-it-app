@@ -19,7 +19,7 @@ public enum CommandCategory{
     }
 
     @JsonValue
-    private String getCategoryName() {
+    public String getCategoryName() {
         return this.categoryName;
     }
 }

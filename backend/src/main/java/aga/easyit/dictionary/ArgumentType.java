@@ -15,7 +15,7 @@ public enum ArgumentType {
     }
 
     @JsonValue
-    private String getTypeName() {
+    public String getTypeName() {
         return this.typeName;
     }
 }
