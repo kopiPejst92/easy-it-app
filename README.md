@@ -1,4 +1,4 @@
-#Easy-IT: Flashcards for Learning Commands Platform 🚀
+## Easy-IT: Flashcards for Learning Commands Platform 🚀
 
 Backend application developed in **Spring Boot** for support in learning developer tools, programming languages, offerring FlashCards as form of storing the commands and options
 
@@ -11,7 +11,9 @@ Backend application developed in **Spring Boot** for support in learning develop
 
 ## 🏗 Architectire
 
--- ## 🚀 Run locally
+WIP 
+
+## 🚀 Run locally
 
 1. Run MySQL database and Kafka server (eq. through Docker Compose)
 2. Clone repository
