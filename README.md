@@ -1,4 +1,4 @@
-## Easy-IT: Flashcards for Learning Commands Platform 🚀
+## Easy-IT: Learning Commands Platform 🚀
 
 Backend application developed in **Spring Boot** for support in learning developer tools, programming languages, offerring FlashCards as form of storing the commands and options
 
