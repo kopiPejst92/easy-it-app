@@ -1,5 +1,23 @@
-My main goal is to provide a tool, which would be found useful by coding. Sometimes we know there is a method for a certain problem, but we constantly forget what it was called. I would like to propose an web application which would The main feature should be Flash Cards, which will display functions and the details such as framework, flags, parameters and usage.
+#Easy-IT: Flashcards for Learning Commands Platform 🚀
+
+Backend application developed in **Spring Boot** for support in learning developer tools, programming languages, offerring FlashCards as form of storing the commands and options
+
+## 🛠 Tech Stack
+-**Java 17** & **Spring Boot 3.2.**
+-**MapStruct** (mappping DTO <-> Entity)
+-**Apache Kafka** (event publication eq.'FlashCardCreatedEvent') WIP
+-**Validation API** ('jakarta.validation') WIP
+- **Maven** 
+
+## 🏗 Architectire
+
+-- ## 🚀 Run locally
+
+1. Run MySQL database and Kafka server (eq. through Docker Compose)
+2. Clone repository
+3. Configure applicatiom properties
+4. Run applicsation by command:
+```bash
+   mvn clean spring-boot:run
 
 
-This part is mainly developed in Spring Boot as backend part of the app. 
-It's still in the progress
