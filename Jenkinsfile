@@ -1,6 +1,3 @@
----
-
-### Jenkins configuration (Pipeline CI/CD)
 
 ```groovy
 pipeline {
