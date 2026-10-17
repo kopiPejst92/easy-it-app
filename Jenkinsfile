@@ -24,7 +24,7 @@ pipeline {
             }
             post {
                 always {
-                    junit 'target surfire-reports/*.xml'
+                    junit 'target/surfire-reports/*.xml'
                 }
             }
         }
@@ -34,12 +34,11 @@ pipeline {
                 sh 'mvn package'
             }
         }
-
+    }
         post {
         always {
             
             allure includeProperties: false, 
-                   jdk: '', 
                    results: [[path: 'target/allure-results']]
         }
             success { 
@@ -49,5 +48,4 @@ pipeline {
                 echo '❌ Pipeline failure'
             }
         }
-    }
 }
